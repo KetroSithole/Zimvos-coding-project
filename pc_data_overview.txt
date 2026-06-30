@@ -1,0 +1,35 @@
+pc_data.csv — Dataset Overview (generated 2026-05-10)
+
+Rows: 10,000
+Columns: 29
+
+Column names (29):
+1. Continent
+2. Country or State
+3. Province or City
+4. Shop Name
+5. Shop Age
+6. PC Make
+7. PC Model
+8. Storage Type
+9. Customer Name
+10. Customer Surname
+11. Customer Contact Number
+12. Customer Email Address
+13. Sales Person Name
+14. Sales Person Department
+15. Cost Price
+16. Sale Price
+17. Payment Method
+18. Discount Amount
+19. Purchase Date
+20. Ship Date
+21. Finance Amount
+22. RAM
+23. Credit Score
+24. Channel
+25. Priority
+26. Cost of Repairs
+27. Total Sales per Employee
+28. PC Market Price
+29. Storage Capacity
