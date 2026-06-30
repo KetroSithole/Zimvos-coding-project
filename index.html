@@ -3,38 +3,612 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cape Town Luxury Properties</title>
+    <title>Graduation Day Celebration</title>
+    <style>
+        :root {
+            --bg: #fffaf3;
+            --bg-2: #f3f7ff;
+            --ink: #1f2430;
+            --muted: #646b7a;
+            --accent: #d97706;
+            --accent-2: #2563eb;
+            --card: rgba(255, 255, 255, 0.82);
+            --shadow: 0 24px 60px rgba(31, 36, 48, 0.14);
+            --border: rgba(31, 36, 48, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at top left, rgba(217, 119, 6, 0.16), transparent 32%),
+                radial-gradient(circle at top right, rgba(37, 99, 235, 0.15), transparent 28%),
+                linear-gradient(180deg, var(--bg), var(--bg-2));
+            font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.18;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: radial-gradient(circle at center, black, transparent 85%);
+        }
+
+        .page {
+            position: relative;
+            z-index: 1;
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 24px 0 48px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 20px;
+            align-items: stretch;
+            margin-top: 18px;
+        }
+
+        .panel {
+            background: var(--card);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .hero-copy {
+            padding: 34px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 520px;
+            position: relative;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(37, 99, 235, 0.08);
+            color: var(--accent-2);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+        }
+
+        .hero h1 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            line-height: 0.92;
+            margin-top: 18px;
+            letter-spacing: -0.04em;
+            max-width: 10ch;
+        }
+
+        .hero p {
+            margin-top: 20px;
+            max-width: 58ch;
+            color: var(--muted);
+            font-size: 1.04rem;
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .button {
+            appearance: none;
+            border: 0;
+            border-radius: 999px;
+            padding: 13px 18px;
+            font: inherit;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, var(--accent), #f59e0b);
+            color: white;
+            box-shadow: 0 18px 30px rgba(217, 119, 6, 0.28);
+        }
+
+        .button-secondary {
+            background: rgba(31, 36, 48, 0.05);
+            color: var(--ink);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .stat {
+            padding: 14px 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.62);
+            border: 1px solid rgba(31, 36, 48, 0.08);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .hero-visual {
+            padding: 18px;
+            display: grid;
+            gap: 14px;
+            grid-template-rows: 1fr auto;
+        }
+
+        .feature-image {
+            position: relative;
+            min-height: 360px;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #111827, #1d4ed8 55%, #f59e0b);
+        }
+
+        .feature-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: saturate(1.02) contrast(1.02);
+        }
+
+        .feature-overlay {
+            position: absolute;
+            inset: auto 0 0 0;
+            padding: 22px;
+            background: linear-gradient(180deg, transparent, rgba(9, 12, 18, 0.78));
+            color: white;
+        }
+
+        .feature-overlay small {
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-weight: 700;
+            opacity: 0.8;
+        }
+
+        .feature-overlay h2 {
+            margin-top: 8px;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+        }
+
+        .caption-card {
+            padding: 18px 20px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 36, 48, 0.08);
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .caption-card p {
+            color: var(--muted);
+            line-height: 1.6;
+            max-width: 40ch;
+        }
+
+        .section {
+            margin-top: 22px;
+            padding: 28px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            align-items: end;
+            margin-bottom: 18px;
+        }
+
+        .section-head h2 {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            letter-spacing: -0.03em;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            max-width: 52ch;
+            line-height: 1.6;
+        }
+
+        .highlights {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .highlight {
+            padding: 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(31, 36, 48, 0.08);
+            min-height: 120px;
+        }
+
+        .highlight strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+        }
+
+        .highlight span {
+            color: var(--muted);
+            line-height: 1.55;
+            font-size: 0.95rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .photo-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            min-height: 240px;
+            background: #e5e7eb;
+            border: 1px solid rgba(31, 36, 48, 0.08);
+            box-shadow: 0 12px 24px rgba(31, 36, 48, 0.08);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 250ms ease, filter 250ms ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.04);
+            filter: saturate(1.08);
+        }
+
+        .photo-label {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 14px;
+            padding: 12px 14px;
+            border-radius: 16px;
+            background: rgba(17, 24, 39, 0.7);
+            color: white;
+            font-size: 0.92rem;
+            line-height: 1.45;
+            backdrop-filter: blur(8px);
+        }
+
+        .timeline {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .timeline-card {
+            padding: 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(31, 36, 48, 0.08);
+        }
+
+        .timeline-card .step {
+            color: var(--accent-2);
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+        }
+
+        .timeline-card h3 {
+            margin-top: 10px;
+            font-size: 1.15rem;
+        }
+
+        .timeline-card p {
+            color: var(--muted);
+            line-height: 1.65;
+            margin-top: 10px;
+        }
+
+        footer {
+            padding: 18px 6px 0;
+            color: var(--muted);
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 980px) {
+            .hero,
+            .highlights,
+            .gallery,
+            .timeline {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-copy {
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .page {
+                width: min(100% - 20px, 1180px);
+                padding-top: 14px;
+            }
+
+            .panel,
+            .section {
+                border-radius: 22px;
+            }
+
+            .hero-copy,
+            .section {
+                padding: 20px;
+            }
+
+            .hero-stats,
+            .highlights,
+            .gallery,
+            .timeline {
+                grid-template-columns: 1fr;
+            }
+
+            .caption-card,
+            .section-head {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            .feature-image {
+                min-height: 280px;
+            }
+        }
+    </style>
 </head>
-<body style="font-family: 'Segoe UI', Arial, sans-serif; margin: 0; background-color: #f5f7fa; color: #333; display: flex; flex-direction: column; align-items: center;">
+<body>
+    <div class="page">
+        <main class="hero">
+            <section class="panel hero-copy">
+                <div>
+                    <div class="eyebrow">Class of 2026</div>
+                    <h1>Celebrating the day it all came together.</h1>
+                    <p>
+                        A graduation keepsake built from your photos, with a warm editorial layout, a clean gallery, and space to relive the proudest moments from the ceremony.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#gallery">View Photos</a>
+                        <a class="button button-secondary" href="#timeline">The Story</a>
+                    </div>
+                </div>
 
-    <header style="background: #1a252f; color: white; width: 100%; text-align: center; padding: 20px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-        <h1 style="margin: 0; font-size: 24px; letter-spacing: 1px;">Cape Town Real Estate</h1>
-    </header>
+                <div class="hero-stats" aria-label="Graduation highlights">
+                    <div class="stat">
+                        <strong>15</strong>
+                        <span>photos in the album</span>
+                    </div>
+                    <div class="stat">
+                        <strong>1</strong>
+                        <span>major milestone celebrated</span>
+                    </div>
+                    <div class="stat">
+                        <strong>∞</strong>
+                        <span>memories worth keeping</span>
+                    </div>
+                </div>
+            </section>
 
-    <main style="background: white; max-width: 400px; width: 90%; margin: 40px auto; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); overflow: hidden;">
-        
-        <div style="background: linear-gradient(135deg, #34495e, #2c3e50); color: white; height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 20px;">
-            <span style="font-size: 38px; margin-bottom: 10px;">🌅</span>
-            <span style="font-size: 18px; font-weight: 600; text-transform: uppercase;">Ketros Village</span>
-        </div>
-        
-        <div style="padding: 24px;">
-            <p style="text-transform: uppercase; font-size: 11px; font-weight: bold; color: #3498db; margin: 0 0 5px 0; letter-spacing: 1px;">For Sale</p>
-            <h2 style="margin: 0 0 10px 0; font-size: 22px; color: #2c3e50;">3 Bedroom Beachside Oasis</h2>
-            <p style="color: #7f8c8d; font-size: 14px; line-height: 1.5; margin: 0 0 20px 0;">
-                Experience ultimate luxury with panoramic Atlantic Ocean views, a private infinity pool, and state-of-the-art finishes just steps from the beach.
-            </p>
-            
-            <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid #ecf0f1; padding-top: 15px;">
-                <span style="font-size: 20px; font-weight: bold; color: #2c3e50;">R 18,500,000</span>
-                <a href="mailto:agent@example.com" style="background-color: #2ecc71; color: white; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; font-size: 14px; transition: 0.2s;">Enquire</a>
+            <aside class="panel hero-visual">
+                <div class="feature-image">
+                    <img src="images.jpg" alt="Graduation celebration cover photo" id="heroImage">
+                    <div class="feature-overlay">
+                        <small>Featured moment</small>
+                        <h2>Caps, smiles, and the best kind of applause.</h2>
+                    </div>
+                </div>
+
+                <div class="caption-card">
+                    <p>
+                        Use this page as a graduation showcase, memory book, or a simple photo story for family and friends.
+                    </p>
+                    <a class="button button-primary" href="mailto:?subject=Graduation%20Celebration">Share</a>
+                </div>
+            </aside>
+        </main>
+
+        <section class="panel section" aria-labelledby="highlights-title">
+            <div class="section-head">
+                <div>
+                    <div class="eyebrow">Highlights</div>
+                    <h2 id="highlights-title">A few reasons the day felt special.</h2>
+                </div>
+                <p>
+                    Every graduation has its own rhythm. This layout gives space to the ceremony, the people who showed up, and the photos that deserve the spotlight.
+                </p>
             </div>
-        </div>
-    </main>
 
-    <footer style="margin: 20px 0; font-size: 12px; color: #95a5a6;">
-        &copy; 2026 Cape Town Premium Living
-    </footer>
+            <div class="highlights">
+                <div class="highlight">
+                    <strong>Ready for ceremony photos</strong>
+                    <span>Large image panels keep formal shots and candid frames looking clean and polished.</span>
+                </div>
+                <div class="highlight">
+                    <strong>Built for mobile and desktop</strong>
+                    <span>The grid collapses smoothly, so the album still feels good on a phone screen.</span>
+                </div>
+                <div class="highlight">
+                    <strong>Easy to update</strong>
+                    <span>Replace the local image files and the gallery updates automatically.</span>
+                </div>
+                <div class="highlight">
+                    <strong>Designed to feel celebratory</strong>
+                    <span>Warm gold accents, glassy cards, and soft gradients keep the mood festive.</span>
+                </div>
+            </div>
+        </section>
 
+        <section class="panel section" id="gallery" aria-labelledby="gallery-title">
+            <div class="section-head">
+                <div>
+                    <div class="eyebrow">Gallery</div>
+                    <h2 id="gallery-title">Your graduation photos.</h2>
+                </div>
+                <p>
+                    All local pictures in this folder are included below, arranged as a gallery of moments from the celebration.
+                </p>
+            </div>
+
+            <div class="gallery" id="galleryGrid"></div>
+        </section>
+
+        <section class="panel section" id="timeline" aria-labelledby="timeline-title">
+            <div class="section-head">
+                <div>
+                    <div class="eyebrow">Timeline</div>
+                    <h2 id="timeline-title">How the story reads.</h2>
+                </div>
+                <p>
+                    A simple structure for a graduation page: arrival, ceremony, and the celebration after the cap toss.
+                </p>
+            </div>
+
+            <div class="timeline">
+                <article class="timeline-card">
+                    <div class="step">Step 01</div>
+                    <h3>Getting ready</h3>
+                    <p>Caps, gowns, and those last-minute photos before everything officially begins.</p>
+                </article>
+                <article class="timeline-card">
+                    <div class="step">Step 02</div>
+                    <h3>The ceremony</h3>
+                    <p>The proud walk across the stage, the cheering, and the moment the future starts to feel real.</p>
+                </article>
+                <article class="timeline-card">
+                    <div class="step">Step 03</div>
+                    <h3>Celebration</h3>
+                    <p>Family, friends, and photos that will keep the memory sharp long after the day is over.</p>
+                </article>
+            </div>
+        </section>
+
+        <footer>
+            Made from the photos already in this folder.
+        </footer>
+    </div>
+
+    <script>
+        const imageFiles = [
+            "1516573146190.jpg",
+            "1682583354639.jpg",
+            "1761699116998.jpg",
+            "1762337325265.jpg",
+            "1774140416082.jpg",
+            "1779372176956.jpg",
+            "27-IMG_7251.jpg",
+            "28-IMG_7252.jpg",
+            "29-IMG_7253.jpg",
+            "30-IMG_7256.jpg",
+            "35-IMG_7264.jpg",
+            "41-IMG_7271.jpg",
+            "42-IMG_7272.jpg",
+            "43-IMG_7273.jpg",
+            "44-IMG_7274 (1).jpg",
+            "44-IMG_7274.jpg",
+            "45-IMG_7275.jpg",
+            "46-IMG_7276.jpg"
+        ];
+
+        const galleryGrid = document.getElementById("galleryGrid");
+        const heroImage = document.getElementById("heroImage");
+
+        const featuredImage = imageFiles.find((file) => file !== "images.jpg") || imageFiles[0];
+        if (featuredImage) {
+            heroImage.src = encodeURI(featuredImage);
+        }
+
+        const labels = [
+            "A moment worth framing",
+            "Proud faces and bright futures",
+            "Caps in the air",
+            "A memory from the ceremony",
+            "Family, friends, and applause",
+            "The celebration continues"
+        ];
+
+        imageFiles.forEach((file, index) => {
+            const card = document.createElement("figure");
+            card.className = "photo-card";
+
+            const img = document.createElement("img");
+            img.loading = "lazy";
+            img.src = encodeURI(file);
+            img.alt = `Graduation photo ${index + 1}`;
+
+            const label = document.createElement("figcaption");
+            label.className = "photo-label";
+            label.textContent = labels[index % labels.length];
+
+            card.appendChild(img);
+            card.appendChild(label);
+            galleryGrid.appendChild(card);
+        });
+    </script>
 </body>
 </html>
